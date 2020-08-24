@@ -1,3 +1,7 @@
+variable "create" {
+    type = bool
+    default = true
+}
 variable "db_name" {
     type    = string
 }
@@ -9,7 +13,7 @@ variable "engine" {
 }
 variable "multi_az" {
     type    = bool
-    default = true
+    default = false
 }
 variable "engine_version" {
     type    = string
@@ -19,15 +23,19 @@ variable "db_subnet_group_name" {
 }
 variable "allocated_storage" {
     type    = number
+    default = "50"
 }
 variable "iops" {
     type    = number
+    default = null
 }
 variable "maintenance_window" {
     type    = string
+    default = null
 }
 variable "storage_type" {
     type    = string
+    default = gp2
 }
 variable "auto_minor_version_upgrade" {
     type    = bool
@@ -45,14 +53,16 @@ variable "backup_retention_period" {
     default = "1"
 } 
 variable "vpc_security_group_ids" {
-    type    = list 
+    type    = list
+    default = [] 
 }
 variable "snapshot_identifier" {
     type    = string
+    default = null
 }
 variable "skip_final_snapshot" {
     type    = bool
-    default = false
+    default = true
 }
 variable "publicly_accessible" {
     type    = bool
@@ -63,7 +73,7 @@ variable "storage_encrypted" {
     default = false
 }
 variable "enabled_cloudwatch_logs_exports" {
-    type    = list(string)
+    type    = any
     default = []
 }
 variable "password" {
@@ -87,7 +97,7 @@ variable "ca_cert_identifier" {
 }
 variable "monitoring_role_arn" {
     type    = string
-    default = ""
+    default = null
 }
 variable "copy_tags_to_snapshot" {
     type    = bool
@@ -96,4 +106,12 @@ variable "copy_tags_to_snapshot" {
 variable "default_tags" {
     type    = map(string)
     default = {}
+}
+variable "db_subnet_group" {
+    type = any
+    default = []
+}
+variable "parameter_group" {
+    type = any 
+    default = []
 }
