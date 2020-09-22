@@ -19,7 +19,8 @@ variable "engine_version" {
     type    = string
 }
 variable "db_subnet_group_name" {
-    type    = string
+    type    = any 
+    default = []
 }
 variable "allocated_storage" {
     type    = number
@@ -77,6 +78,9 @@ variable "enabled_cloudwatch_logs_exports" {
     default = []
 }
 variable "password" {
+    type    = string
+}
+variable "username" {
     type    = string
 }
 variable "performance_insights_enabled"  {
