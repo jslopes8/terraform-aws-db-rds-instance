@@ -119,3 +119,7 @@ variable "parameter_group" {
     type = any 
     default = []
 }
+variable "enhanced_monitoring" {
+    type = any 
+    default = {}
+}

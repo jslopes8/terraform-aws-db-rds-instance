@@ -61,6 +61,7 @@ resource "aws_db_instance" "main" {
     identifier                      = lower(replace(var.db_name, " ", "-"))
     instance_class                  = var.instance_class
     engine                          = var.engine
+    username                        = var.username
     engine_version                  = var.engine_version
     multi_az                        = var.multi_az
     password                        = var.password
@@ -104,7 +105,7 @@ resource "aws_db_parameter_group" "main" {
     family = lookup(var.parameter_group.value, "family", null)
 
     dynamic "parameter" {
-        for_each = var.parameter
+        for_each = lookup(var.parameter_group.value, "parameter", null)
         content {
             name    = lookup(parameter.value, "name", null)
             value   = lookup(parameter.value, "value", null)
