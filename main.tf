@@ -79,7 +79,7 @@ resource "aws_db_instance" "main" {
     storage_encrypted               = var.storage_encrypted
 
     db_subnet_group_name            = aws_db_subnet_group.main.0.id
-    db_cluster_parameter_group_name = var.db_parameter_group_name
+    parameter_group_name            = length(aws_db_parameter_group.main) > 0 ? aws_db_parameter_group.main.0.name : "default.mysql5.7"
 
     snapshot_identifier             = var.snapshot_identifier
     final_snapshot_identifier       = "${lower(replace(var.db_name, " ", "-"))}-${random_id.snapshot_identifier.0.hex}-final-snapshot"
