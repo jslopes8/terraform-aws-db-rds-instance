@@ -6,7 +6,7 @@ resource "aws_db_subnet_group" "main" {
 
     tags = merge(
         {
-            "Name" = "${format("%s", var.cluster_name)}-Subnet-Group"
+            "Name" = "${format("%s", var.db_name)}-Subnet-Group"
         },
         var.default_tags,
   )
@@ -51,7 +51,7 @@ resource "random_id" "snapshot_identifier" {
 
     byte_length = 4
     keepers = {
-        id = var.cluster_name
+        id = var.db_name
     }
 }
 

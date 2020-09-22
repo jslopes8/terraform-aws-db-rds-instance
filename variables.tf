@@ -35,7 +35,7 @@ variable "maintenance_window" {
 }
 variable "storage_type" {
     type    = string
-    default = gp2
+    default = "gp2"
 }
 variable "auto_minor_version_upgrade" {
     type    = bool
