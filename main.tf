@@ -1,16 +1,3 @@
-resource "aws_db_subnet_group" "main" {
-    count = var.create ? length(var.db_subnet_group) : 0
-
-    name       = lookup(var.db_subnet_group[count.index], "name", null)
-    subnet_ids = lookup(var.db_subnet_group[count.index], "subnet_ids", null)
-
-    tags = merge(
-        {
-            "Name" = "${format("%s", var.db_name)}-Subnet-Group"
-        },
-        var.default_tags,
-  )
-}
 data "aws_iam_policy_document" "main" {
     count = var.create ? length(var.enhanced_monitoring) : 0
 
@@ -87,7 +74,8 @@ resource "aws_db_instance" "main" {
 
     enabled_cloudwatch_logs_exports = var.enabled_cloudwatch_logs_exports
     performance_insights_enabled    = var.performance_insights_enabled
-    monitoring_role_arn             = coalesce(var.monitoring_role_arn, aws_iam_role.enhanced_monitoring.*.arn, null)
+    #monitoring_role_arn             = coalesce(var.monitoring_role_arn, aws_iam_role.enhanced_monitoring.*.arn, null)
+    monitoring_role_arn             = length(aws_iam_role.enhanced_monitoring) > 0 ? aws_iam_role.enhanced_monitoring.0.arn ? null
     monitoring_interval             = var.monitoring_interval
 
     copy_tags_to_snapshot   = var.copy_tags_to_snapshot
@@ -112,7 +100,19 @@ resource "aws_db_parameter_group" "main" {
         }
     }
 }
+resource "aws_db_subnet_group" "main" {
+    count = var.create ? length(var.db_subnet_group) : 0
 
+    name       = lookup(var.db_subnet_group[count.index], "name", null)
+    subnet_ids = lookup(var.db_subnet_group[count.index], "subnet_ids", null)
+
+    tags = merge(
+        {
+            "Name" = "${format("%s", var.db_name)}-Subnet-Group"
+        },
+        var.default_tags,
+  )
+}
 
 
 

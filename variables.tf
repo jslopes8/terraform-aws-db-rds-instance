@@ -18,10 +18,6 @@ variable "multi_az" {
 variable "engine_version" {
     type    = string
 }
-variable "db_subnet_group_name" {
-    type    = any 
-    default = []
-}
 variable "allocated_storage" {
     type    = number
     default = "50"
@@ -87,10 +83,6 @@ variable "performance_insights_enabled"  {
     type    = bool
     default = false
 }
-variable "create_monitoring_role" {
-    type    = bool
-    default = false
-}
 variable "monitoring_interval" {
     type    = number
     default = 0
@@ -98,10 +90,6 @@ variable "monitoring_interval" {
 variable "ca_cert_identifier" {
     type    = string
     default = "rds-ca-2019"
-}
-variable "monitoring_role_arn" {
-    type    = string
-    default = null
 }
 variable "copy_tags_to_snapshot" {
     type    = bool
