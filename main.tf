@@ -75,7 +75,7 @@ resource "aws_db_instance" "main" {
     enabled_cloudwatch_logs_exports = var.enabled_cloudwatch_logs_exports
     performance_insights_enabled    = var.performance_insights_enabled
     #monitoring_role_arn             = coalesce(var.monitoring_role_arn, aws_iam_role.enhanced_monitoring.*.arn, null)
-    monitoring_role_arn             = length(aws_iam_role.enhanced_monitoring) > 0 ? aws_iam_role.enhanced_monitoring.0.arn ? null
+    monitoring_role_arn             = length(aws_iam_role.enhanced_monitoring) > 0 ? aws_iam_role.enhanced_monitoring.0.arn : null
     monitoring_interval             = var.monitoring_interval
 
     copy_tags_to_snapshot   = var.copy_tags_to_snapshot
