@@ -88,11 +88,11 @@ resource "aws_db_instance" "main" {
 resource "aws_db_parameter_group" "main" {
     count = var.create ? length(var.db_parameter_group) : 0
 
-    name   = lookup(var.db_parameter_group.value, "name", null)
-    family = lookup(var.db_parameter_group.value, "family", null)
+    name   = lookup(var.db_parameter_group[count.index], "name", null)
+    family = lookup(var.db_parameter_group[count.index], "family", null)
 
     dynamic "parameter" {
-        for_each = lookup(var.db_parameter_group.value, "parameter", null)
+        for_each = lookup(var.db_parameter_group[count.index], "parameter", null)
         content {
             name    = lookup(parameter.value, "name", null)
             value   = lookup(parameter.value, "value", null)
