@@ -103,11 +103,15 @@ variable "db_subnet_group" {
     type = any
     default = []
 }
-variable "parameter_group" {
+variable "db_parameter_group" {
     type = any 
     default = []
 }
 variable "enhanced_monitoring" {
     type = any 
     default = {}
+}
+variable "parameter_group_name" {
+    type = any 
+    default = ""
 }

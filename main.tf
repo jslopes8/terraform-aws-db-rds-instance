@@ -66,7 +66,7 @@ resource "aws_db_instance" "main" {
     storage_encrypted               = var.storage_encrypted
 
     db_subnet_group_name            = aws_db_subnet_group.main.0.id
-    parameter_group_name            = length(aws_db_parameter_group.main) > 0 ? aws_db_parameter_group.main.0.name : "default.mysql5.7"
+    parameter_group_name            = length(aws_db_parameter_group.main) > 0 ? aws_db_parameter_group.main.0.name : var.parameter_group_name
 
     snapshot_identifier             = var.snapshot_identifier
     final_snapshot_identifier       = "${lower(replace(var.db_name, " ", "-"))}-${random_id.snapshot_identifier.0.hex}-final-snapshot"
@@ -74,7 +74,6 @@ resource "aws_db_instance" "main" {
 
     enabled_cloudwatch_logs_exports = var.enabled_cloudwatch_logs_exports
     performance_insights_enabled    = var.performance_insights_enabled
-    #monitoring_role_arn             = coalesce(var.monitoring_role_arn, aws_iam_role.enhanced_monitoring.*.arn, null)
     monitoring_role_arn             = length(aws_iam_role.main) > 0 ? aws_iam_role.main.0.arn : null
     monitoring_interval             = var.monitoring_interval
 
@@ -87,13 +86,13 @@ resource "aws_db_instance" "main" {
     )
 }
 resource "aws_db_parameter_group" "main" {
-    count = var.create ? length(var.parameter_group) : 0
+    count = var.create ? length(var.db_parameter_group) : 0
 
-    name   = lookup(var.parameter_group.value, "name", null)
-    family = lookup(var.parameter_group.value, "family", null)
+    name   = lookup(var.db_parameter_group.value, "name", null)
+    family = lookup(var.db_parameter_group.value, "family", null)
 
     dynamic "parameter" {
-        for_each = lookup(var.parameter_group.value, "parameter", null)
+        for_each = lookup(var.db_parameter_group.value, "parameter", null)
         content {
             name    = lookup(parameter.value, "name", null)
             value   = lookup(parameter.value, "value", null)
