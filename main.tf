@@ -65,7 +65,6 @@ resource "aws_db_instance" "main" {
     storage_encrypted               = var.storage_encrypted
     replicate_source_db             = var.db_replicate_source
 
-    db_subnet_group_name            = aws_db_subnet_group.main.0.id
     db_subnet_group_name            = length(aws_db_subnet_group.main) > 0 ? aws_db_subnet_group.main.0.id : null
     parameter_group_name            = length(aws_db_parameter_group.main) > 0 ? aws_db_parameter_group.main.0.name : var.parameter_group_name
 
@@ -85,6 +84,10 @@ resource "aws_db_instance" "main" {
         },
         var.default_tags
     )
+
+    lifecycle {
+        ignore_changes = [snapshot_identifier]
+    }
 }
 resource "aws_db_parameter_group" "main" {
     count = var.create ? length(var.db_parameter_group) : 0
