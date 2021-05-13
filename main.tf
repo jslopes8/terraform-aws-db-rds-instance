@@ -1,6 +1,5 @@
 data "aws_iam_policy_document" "main" {
-    count = var.create ? length(var.enhanced_monitoring) : 0
-
+    count = var.create && var.enhanced_monitoring ? 1 : 0
     statement {
         actions = [
             "sts:AssumeRole",
@@ -13,7 +12,7 @@ data "aws_iam_policy_document" "main" {
     }
 }
 resource "aws_iam_role" "main" {
-    count = var.create ? length(var.enhanced_monitoring) : 0
+    count = var.create && var.enhanced_monitoring ? 1 : 0
 
     name               = "${var.db_name}-MonitoringRole"
     assume_role_policy = data.aws_iam_policy_document.main.0.json
@@ -27,7 +26,7 @@ resource "aws_iam_role" "main" {
 }
 
 resource "aws_iam_role_policy_attachment" "main" {
-    count = var.create ? length(var.enhanced_monitoring) : 0
+    count = var.create && var.enhanced_monitoring ? 1 : 0
 
     role       = aws_iam_role.main.0.name
     policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonRDSEnhancedMonitoringRole"

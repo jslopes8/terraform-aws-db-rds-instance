@@ -108,8 +108,8 @@ variable "db_parameter_group" {
     default = []
 }
 variable "enhanced_monitoring" {
-    type = any 
-    default = {}
+    type = bool
+    default = false
 }
 variable "parameter_group_name" {
     type = any 
