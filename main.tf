@@ -64,6 +64,7 @@ resource "aws_db_instance" "main" {
     iops                            = var.iops
     storage_type                    = var.storage_type
     storage_encrypted               = var.storage_encrypted
+    replicate_source_db             = var.db_replicate_source
 
     db_subnet_group_name            = aws_db_subnet_group.main.0.id
     parameter_group_name            = length(aws_db_parameter_group.main) > 0 ? aws_db_parameter_group.main.0.name : var.parameter_group_name

@@ -115,3 +115,7 @@ variable "parameter_group_name" {
     type = any 
     default = ""
 }
+variable "db_replicate_source" {
+  type = string
+  default = null
+}
