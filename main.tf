@@ -67,6 +67,7 @@ resource "aws_db_instance" "main" {
     replicate_source_db             = var.db_replicate_source
 
     db_subnet_group_name            = aws_db_subnet_group.main.0.id
+    db_subnet_group_name            = length(aws_db_subnet_group.main) > 0 ? aws_db_subnet_group.main.0.id : null
     parameter_group_name            = length(aws_db_parameter_group.main) > 0 ? aws_db_parameter_group.main.0.name : var.parameter_group_name
 
     snapshot_identifier             = var.snapshot_identifier
