@@ -4,3 +4,6 @@ output "endpoint" {
 output "id" {
     value   = aws_db_instance.main.0.id
 }
+output "name" {
+    value   = aws_db_instance.main.0.name
+}

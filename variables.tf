@@ -124,3 +124,7 @@ variable "db_replicate_source" {
   type = string
   default = null
 }
+variable "enabled_depends_on" {
+    type = list
+    default = []
+}

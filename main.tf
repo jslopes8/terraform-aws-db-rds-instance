@@ -88,6 +88,8 @@ resource "aws_db_instance" "main" {
     lifecycle {
         ignore_changes = [snapshot_identifier]
     }
+
+    depends_on = var.enabled_depends_on
 }
 resource "aws_db_parameter_group" "main" {
     count = var.create ? length(var.db_parameter_group) : 0
