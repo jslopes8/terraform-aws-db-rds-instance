@@ -10,6 +10,7 @@ variable "instance_class" {
 }
 variable "engine" {
     type    = string
+    default = null
 }
 variable "multi_az" {
     type    = bool
@@ -17,6 +18,7 @@ variable "multi_az" {
 }
 variable "engine_version" {
     type    = string
+    default = null
 }
 variable "allocated_storage" {
     type    = number
@@ -44,6 +46,7 @@ variable "apply_immediately" {
 }
 variable "backup_window" {
     type    = string
+    default = null
 }
 variable "backup_retention_period" {
     type    = number
@@ -75,9 +78,11 @@ variable "enabled_cloudwatch_logs_exports" {
 }
 variable "password" {
     type    = string
+    default = null
 }
 variable "username" {
     type    = string
+    default = null
 }
 variable "performance_insights_enabled"  {
     type    = bool
