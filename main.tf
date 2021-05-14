@@ -89,6 +89,11 @@ resource "aws_db_instance" "main" {
         ignore_changes = [snapshot_identifier]
     }
 
+    timeouts {
+        update = var.update_timeouts
+        create = var.create_timeouts
+    }
+
     depends_on = [var.enabled_depends_on]
 }
 resource "aws_db_parameter_group" "main" {

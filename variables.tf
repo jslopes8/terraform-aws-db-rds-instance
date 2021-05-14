@@ -128,3 +128,11 @@ variable "enabled_depends_on" {
     type = list
     default = []
 }
+variable "update_timeouts" {
+  type = string
+  default = null
+}
+variable "create_timeouts" {
+  type = string
+  default = null
+}
